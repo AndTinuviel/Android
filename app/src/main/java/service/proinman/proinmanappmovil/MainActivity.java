@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the Send button */
     public void abrirActivity2(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, Activity2.class);
+        Intent intent = new Intent(this, ListaTrabajo.class);
         //EditText editText = (EditText) findViewById(R.id.editText);
         //String message = editText.getText().toString();
         //intent.putExtra(EXTRA_MESSAGE, message);
