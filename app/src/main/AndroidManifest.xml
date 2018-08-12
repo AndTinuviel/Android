@@ -33,6 +33,10 @@
         <activity
             android:name=".ReporteTrabajo"
             android:label="@string/title_activity_reporte_trabajo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Reportes"
+            android:label="@string/title_activity_reportes"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
