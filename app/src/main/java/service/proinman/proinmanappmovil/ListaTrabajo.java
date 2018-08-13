@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,12 +17,15 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
+import service.proinman.clases.ListaTarea;
 import service.proinman.clases.UbicacionGeografica;
 import service.proinman.rest.HttpClient;
 import service.proinman.rest.OnHttpRequestComplete;
 import service.proinman.rest.Response;
 
 public class ListaTrabajo extends AppCompatActivity {
+
+    LinearLayout stackContenct2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class ListaTrabajo extends AppCompatActivity {
             }
         });
 
-
+        stackContenct2 = (LinearLayout) findViewById(R.id.StackContenct2);
 
         HttpClient cliente =  new HttpClient(new OnHttpRequestComplete() {
             @Override
@@ -48,29 +52,26 @@ public class ListaTrabajo extends AppCompatActivity {
                     Gson gson= new GsonBuilder().create();
                     try {
                         JSONArray jsonArray = new JSONArray(status.getResult());
-                        ArrayList<UbicacionGeografica> regiones = new ArrayList<UbicacionGeografica>();
+                        ArrayList<ListaTarea> tareas = new ArrayList<ListaTarea>();
 
 
                         for (int i=0; i < jsonArray.length(); i++){
-                            String ubicacion = jsonArray.getString(i);
-                            UbicacionGeografica region = gson.fromJson(ubicacion,UbicacionGeografica.class);
-                            regiones.add(region);
+                            String arrayTareas = jsonArray.getString(i);
+                            ListaTarea tarea = gson.fromJson(arrayTareas,ListaTarea.class);
+                            tareas.add(tarea);
                             TextView t =new TextView(getBaseContext());
-                            t.setText(region.getDescripcion());
-                            stackContenct.addView(t);
+                            t.setText(tarea.getEstado());
+                            stackContenct2.addView(t);
                         }
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-                    Toast.makeText(Activity2.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListaTrabajo.this, status.getResult(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        cliente.excecute("http://192.168.100.5:8180/proinman/rest/ubicacionGeografica/consultarRegiones");
-
-
-
+        cliente.excecute("http://192.168.100.5:8180/proinman/rest/tareas/consultarTareasPorUsuario");
 
     }
 

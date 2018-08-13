@@ -9,32 +9,16 @@
     tools:showIn="@layout/activity_lista_trabajo">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
         <LinearLayout
+            android:id="@+id/StackContenct2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/lblListaTrabajo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:duplicateParentState="false"
-                android:text="Lista de Trabajo"
-                android:textSize="24sp" />
-
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/listViewTareas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
 
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
