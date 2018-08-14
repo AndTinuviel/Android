@@ -1,5 +1,6 @@
 package service.proinman.proinmanappmovil;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,9 @@ public class ListaTrabajo extends AppCompatActivity {
 
     LinearLayout stackContenct2;
 
+    //TableRow fila;
+    TableLayout tabla;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,8 @@ public class ListaTrabajo extends AppCompatActivity {
         });
 
         stackContenct2 = (LinearLayout) findViewById(R.id.StackContenct2);
+        tabla = (TableLayout) findViewById(R.id.simpleTableLayout);
+        //fila = (TableRow) findViewById(R.id.fila);
 
         HttpClient cliente =  new HttpClient(new OnHttpRequestComplete() {
             @Override
@@ -59,14 +67,41 @@ public class ListaTrabajo extends AppCompatActivity {
                             String arrayTareas = jsonArray.getString(i);
                             ListaTarea tarea = gson.fromJson(arrayTareas,ListaTarea.class);
                             tareas.add(tarea);
-                            TextView t =new TextView(getBaseContext());
-                            t.setText(tarea.getEstado());
-                            stackContenct2.addView(t);
+
+                            TextView tareaNombre =new TextView(getBaseContext());
+                            tareaNombre.setText(tarea.getMotorActividad().getNombre());
+                            tareaNombre.setBackgroundColor(Color.RED);
+                            tareaNombre.setPadding(5,5,5,5);
+                            tareaNombre.setTextColor(Color.BLUE);
+                            tareaNombre.setTextSize(12);
+
+                            TextView tareaDetalle =new TextView(getBaseContext());
+                            tareaDetalle.setText(tarea.getSolicitud().getCliente().getNombreRazonSocial());
+                            tareaDetalle.setBackgroundColor(Color.CYAN);
+                            tareaDetalle.setPadding(5,5,5,5);
+                            tareaDetalle.setTextColor(Color.BLUE);
+                            tareaDetalle.setTextSize(12);
+
+
+
+
+                            //stackContenct2.addView(t);
+
+                            TableRow filaNueva = new TableRow(getBaseContext());
+                            filaNueva.addView(tareaNombre);
+                            filaNueva.addView(tareaDetalle);
+                            tabla.addView(filaNueva);
+
+
+
+                            //filaNueva.addView(t);
+
                         }
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-                    Toast.makeText(ListaTrabajo.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                    //Código para ver si se está trayendo los datos del rest. mensaje que desaparece
+                    //Toast.makeText(ListaTrabajo.this, status.getResult(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -14,4 +14,36 @@ public class Cliente {
     private String mail;
     private String nombreRazonSocial;
     private String telefono;
+
+    public Integer getCodigoCliente() {
+        return codigoCliente;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getGiroNegocio() {
+        return giroNegocio;
+    }
+
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public String getNombreRazonSocial() {
+        return nombreRazonSocial;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
 }

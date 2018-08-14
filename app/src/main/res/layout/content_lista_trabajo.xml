@@ -21,4 +21,43 @@
         </LinearLayout>
 
     </ScrollView>
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/simpleTableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*"> <!-- stretch the second column of the layout-->
+
+        <!-- first row of the table layout-->
+        <TableRow
+
+            android:id="@+id/fila"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <!-- first element of the row-->
+            <TextView
+
+                android:id="@+id/simpleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:background="#b0b0b0"
+                android:padding="18dip"
+                android:text="Text 1"
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <TextView
+
+                android:id="@+id/simpleTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FF0000"
+                android:padding="18dip"
+                android:text="Text 2"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+        </TableRow>
+    </TableLayout>
+
 </android.support.constraint.ConstraintLayout>
