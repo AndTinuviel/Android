@@ -20,6 +20,7 @@ import service.proinman.rest.HttpClient;
 import service.proinman.rest.OnHttpRequestComplete;
 import service.proinman.rest.Response;
 
+
 public class Activity2 extends AppCompatActivity {
 
     LinearLayout stackContenct;
