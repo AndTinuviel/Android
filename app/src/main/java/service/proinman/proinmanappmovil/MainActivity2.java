@@ -5,8 +5,21 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
+
+import service.proinman.clases.ListaTarea;
+import service.proinman.clases.UbicacionGeografica;
+import service.proinman.rest.HttpClient;
+import service.proinman.rest.OnHttpRequestComplete;
+import service.proinman.rest.Response;
 
 
 public class MainActivity2 extends AppCompatActivity {
@@ -17,6 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mDetalleTarea = new ArrayList<>();
+    private ArrayList<ListaTarea> tareas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +38,55 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Log.d(TAG, "onCreate: started.");
 
+        consultarTareasPorUsuario();
         initImageBitmaps();
+    }
+
+
+    private void consultarTareasPorUsuario(){
+
+        HttpClient cliente =  new HttpClient(new OnHttpRequestComplete() {
+            @Override
+            public void onComplete(Response status) {
+                if(status.isSuccess()){
+                    Gson gson= new GsonBuilder().create();
+                    try {
+                        JSONArray jsonArray = new JSONArray(status.getResult());
+                        tareas = new ArrayList<ListaTarea>();
+                        for (int i=0; i < jsonArray.length(); i++){
+                            String tarea = jsonArray.getString(i);
+                            ListaTarea tareaObjeto = gson.fromJson(tarea,ListaTarea.class);
+                            tareas.add(tareaObjeto);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        cliente.excecute( Constantes.URL_WEB_SERVICE+"/tareas/consultarTareasPorUsuario");
+
+
     }
 
     private void initImageBitmaps(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
-        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mNames.add("Aprobar cotizacion");
-        mDetalleTarea.add("Primax La Concordia");
 
-        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-        mNames.add("Reporte de trabajo");
-        mDetalleTarea.add("Primax Santo Domingo");
+        for (ListaTarea tarea:  tareas) {
 
+            mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
+            mNames.add(tarea.getMotorActividad().getNombre()+ " " +
+                    tarea.getSolicitud().getCliente().getNombreRazonSocial()+" " +
+                    tarea.getSolicitud().getDescipcion()+" " +
+                    tarea.getSolicitud().getDireccion());
+//            mDetalleTarea.add(tarea.getSolicitud().getCliente().getNombreRazonSocial()+
+//                    tarea.getSolicitud().getDescipcion()+
+//            tarea.getSolicitud().getDireccion());
+
+
+        }
         initRecyclerView();
     }
 

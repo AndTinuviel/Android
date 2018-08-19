@@ -95,9 +95,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-
-
-
     }
 
     private void populateAutoComplete() {
@@ -342,7 +339,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             cliente.excecute(Constantes.URL_WEB_SERVICE+"/gestionUsuario/loguear?username="+username+"&password="+contrasenia);
 
-            Intent intent = new Intent(LoginActivity.this, ListaTrabajo.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity2.class);
+            //EditText editText = (EditText) findViewById(R.id.editText);
+            //String message = editText.getText().toString();
+            //intent.putExtra(EXTRA_MESSAGE, message);
             startActivity(intent);
 
             return verificacionCorrecta;
