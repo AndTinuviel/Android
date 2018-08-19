@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
     Boolean  verificacionCorrecta= false;
+    public static final String USERNAME_KEY = "username";
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -340,9 +341,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cliente.excecute(Constantes.URL_WEB_SERVICE+"/gestionUsuario/loguear?username="+username+"&password="+contrasenia);
 
             Intent intent = new Intent(LoginActivity.this, MainActivity2.class);
-            //EditText editText = (EditText) findViewById(R.id.editText);
-            //String message = editText.getText().toString();
-            //intent.putExtra(EXTRA_MESSAGE, message);
+            intent.putExtra(USERNAME_KEY, username);
             startActivity(intent);
 
             return verificacionCorrecta;

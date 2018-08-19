@@ -25,6 +25,7 @@ import service.proinman.rest.Response;
 public class MainActivity2 extends AppCompatActivity {
 
     private static final String TAG = "MainActivity2";
+    private static String USERNAME = "";
 
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
@@ -38,6 +39,10 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Log.d(TAG, "onCreate: started.");
 
+        Bundle parametros = this.getIntent().getExtras();
+        USERNAME = parametros.getString("username");
+
+        System.out.println("************** USERNAME "+USERNAME);
         consultarTareasPorUsuario();
         initImageBitmaps();
     }
@@ -65,7 +70,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        cliente.excecute( Constantes.URL_WEB_SERVICE+"/tareas/consultarTareasPorUsuario");
+        cliente.excecute( Constantes.URL_WEB_SERVICE+"/tareas/consultarTareasPorUsuario?username="+USERNAME);
 
 
     }
@@ -77,14 +82,14 @@ public class MainActivity2 extends AppCompatActivity {
         for (ListaTarea tarea:  tareas) {
 
             mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-            mNames.add(tarea.getMotorActividad().getNombre()+ " " +
-                    tarea.getSolicitud().getCliente().getNombreRazonSocial()+" " +
-                    tarea.getSolicitud().getDescipcion()+" " +
+            mNames.add(tarea.getMotorActividad().getNombre()+ " CLIENTE: " +
+                    tarea.getSolicitud().getCliente().getNombreRazonSocial()+" CIUDAD: " +
+                    tarea.getSolicitud().getCiudad().getDescripcion() + " DESCRIPCIÓN: " +
+                    tarea.getSolicitud().getDescipcion()+" DIRECCIÓN: " +
                     tarea.getSolicitud().getDireccion());
 //            mDetalleTarea.add(tarea.getSolicitud().getCliente().getNombreRazonSocial()+
 //                    tarea.getSolicitud().getDescipcion()+
 //            tarea.getSolicitud().getDireccion());
-
 
         }
         initRecyclerView();
