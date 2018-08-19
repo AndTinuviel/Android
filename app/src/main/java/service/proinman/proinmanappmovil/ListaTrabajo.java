@@ -106,7 +106,7 @@ public class ListaTrabajo extends AppCompatActivity {
             }
         });
 
-        cliente.excecute("http://192.168.100.5:8180/proinman/rest/tareas/consultarTareasPorUsuario");
+        cliente.excecute(Constantes.URL_WEB_SERVICE+"/tareas/consultarTareasPorUsuario");
 
     }
 

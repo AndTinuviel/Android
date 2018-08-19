@@ -17,4 +17,35 @@ public class Usuario {
     private String username;
     private List<UsuarioRol> listaUsuarioRol;
 
+    public Integer getCodigoUsuario() {
+        return codigoUsuario;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public List<UsuarioRol> getListaUsuarioRol() {
+        return listaUsuarioRol;
+    }
 }

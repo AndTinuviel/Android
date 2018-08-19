@@ -28,9 +28,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import service.proinman.clases.UbicacionGeografica;
+import service.proinman.clases.Usuario;
+import service.proinman.rest.HttpClient;
+import service.proinman.rest.OnHttpRequestComplete;
+import service.proinman.rest.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -43,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    Boolean  verificacionCorrecta= false;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -92,6 +105,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
+
     }
 
     private void populateAutoComplete() {
@@ -192,12 +208,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return true;//email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return true; //password.length() > 4;
     }
 
     /**
@@ -308,23 +324,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+            HttpClient cliente =  new HttpClient(new OnHttpRequestComplete() {
+                @Override
+                public void onComplete(Response status) {
+                    if(status.isSuccess()){
+                        Gson gson= new GsonBuilder().create();
+                        try {
+                            Boolean resultadoLogguinBoolean = new Boolean(status.getResult());
+                            if(resultadoLogguinBoolean){
+                                verificacionCorrecta = true;
+                            }else{
+                                verificacionCorrecta = false;
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        //Toast.makeText(LoginActivity.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+            });
 
-            // TODO: register the new account here.
-            return true;
+            cliente.excecute(Constantes.URL_WEB_SERVICE+"/gestionUsuario/loguear?username=rcruz&password=1719550269");
+
+            return verificacionCorrecta;
+//
+//
+//            try {
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+//
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mEmail)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
+//
+//            // TODO: register the new account here.
+//            return true;
         }
 
         @Override
