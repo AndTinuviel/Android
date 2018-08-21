@@ -30,8 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
-    private ArrayList<String> mDetalleTarea = new ArrayList<>();
-    private ArrayList<ListaTarea> tareas = new ArrayList<>();
+    private ArrayList<ListaTarea> mtareas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +56,11 @@ public class MainActivity2 extends AppCompatActivity {
                     Gson gson= new GsonBuilder().create();
                     try {
                         JSONArray jsonArray = new JSONArray(status.getResult());
-                        tareas = new ArrayList<ListaTarea>();
+                        mtareas = new ArrayList<ListaTarea>();
                         for (int i=0; i < jsonArray.length(); i++){
                             String tarea = jsonArray.getString(i);
                             ListaTarea tareaObjeto = gson.fromJson(tarea,ListaTarea.class);
-                            tareas.add(tareaObjeto);
+                            mtareas.add(tareaObjeto);
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -79,7 +78,7 @@ public class MainActivity2 extends AppCompatActivity {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
 
-        for (ListaTarea tarea:  tareas) {
+        for (ListaTarea tarea:  mtareas) {
 
             mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
             mNames.add(tarea.getMotorActividad().getNombre()+ " CLIENTE: " +
@@ -87,10 +86,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tarea.getSolicitud().getCiudad().getDescripcion() + " DESCRIPCIÓN: " +
                     tarea.getSolicitud().getDescipcion()+" DIRECCIÓN: " +
                     tarea.getSolicitud().getDireccion());
-//            mDetalleTarea.add(tarea.getSolicitud().getCliente().getNombreRazonSocial()+
-//                    tarea.getSolicitud().getDescipcion()+
-//            tarea.getSolicitud().getDireccion());
-
         }
         initRecyclerView();
     }
@@ -98,7 +93,7 @@ public class MainActivity2 extends AppCompatActivity {
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerview.");
         RecyclerView recyclerView = findViewById(R.id.recyclerv_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls, mtareas);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

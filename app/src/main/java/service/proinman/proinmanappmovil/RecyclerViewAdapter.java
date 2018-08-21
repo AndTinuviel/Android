@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import service.proinman.clases.ListaTarea;
 
 
 /**
@@ -28,9 +29,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
+    private ArrayList<ListaTarea> mTarea = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images ) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images , ArrayList<ListaTarea> tarea) {
+        mTarea = tarea;
         mImageNames = imageNames;
         mImages = images;
         mContext = context;
@@ -64,6 +67,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(mContext, GalleryActivity.class);
                 intent.putExtra("image_url", mImages.get(position));
                 intent.putExtra("image_name", mImageNames.get(position));
+                intent.putExtra("codigoTarea", mTarea.get(position).getCodigoTarea());
+                intent.putExtra("codigoSolicitud", mTarea.get(position).getSolicitud().getCodigoSolicitud());
                 mContext.startActivity(intent);
             }
         });

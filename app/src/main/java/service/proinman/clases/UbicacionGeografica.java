@@ -1,10 +1,12 @@
 package service.proinman.clases;
 
+import java.io.Serializable;
+
 /**
  * Created by andre on 11/08/2018.
  */
 
-public class UbicacionGeografica {
+public class UbicacionGeografica implements Serializable{
 
     private Integer codigoUbicacionGeografica;
     private String descripcion;

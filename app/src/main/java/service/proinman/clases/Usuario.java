@@ -1,12 +1,13 @@
 package service.proinman.clases;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by andre on 12/08/2018.
  */
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private Integer codigoUsuario;
     private String apellido;

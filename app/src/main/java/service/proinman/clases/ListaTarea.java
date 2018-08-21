@@ -1,12 +1,13 @@
 package service.proinman.clases;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by andre on 12/08/2018.
  */
 
-public class ListaTarea {
+public class ListaTarea implements Serializable{
 
     private Integer codigoTarea;
     private String estado;

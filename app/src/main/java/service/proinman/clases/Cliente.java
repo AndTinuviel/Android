@@ -1,10 +1,12 @@
 package service.proinman.clases;
 
+import java.io.Serializable;
+
 /**
  * Created by andre on 12/08/2018.
  */
 
-public class Cliente {
+public class Cliente implements Serializable{
 
     private Integer codigoCliente;
     private String celular;

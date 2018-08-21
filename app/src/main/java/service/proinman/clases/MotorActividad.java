@@ -1,10 +1,12 @@
 package service.proinman.clases;
 
+import java.io.Serializable;
+
 /**
  * Created by andre on 12/08/2018.
  */
 
-public class MotorActividad {
+public class MotorActividad implements Serializable{
 
     private Integer codigoActividad;
     private String direccionPagina;

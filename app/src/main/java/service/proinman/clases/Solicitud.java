@@ -1,5 +1,6 @@
 package service.proinman.clases;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by andre on 12/08/2018.
  */
 
-public class Solicitud {
+public class Solicitud implements Serializable{
 
 
     private Integer codigoSolicitud;
