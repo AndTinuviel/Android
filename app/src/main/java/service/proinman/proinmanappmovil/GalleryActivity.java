@@ -53,7 +53,7 @@ public class GalleryActivity extends AppCompatActivity {
             codigoTarea = getIntent().getIntExtra("codigoTarea",0);
             codigoSolicitud = getIntent().getIntExtra("codigoSolicitud",0);
 
-            setImage(imageUrl, imageName);
+            //setImage(imageUrl, imageName);
         }
     }
 
@@ -70,6 +70,14 @@ public class GalleryActivity extends AppCompatActivity {
                         Solicitud solicitud = gson.fromJson(solicitudString,Solicitud.class);
 
                         System.out.println("*******************  solicitud getCodigoSolicitud "+solicitud.getCodigoSolicitud());
+
+                        TextView editTextDireccion = (TextView) findViewById(R.id.txtDireccion);
+                        editTextDireccion.setText(solicitud.getDireccion());
+
+                        TextView editTextDescripcion = (TextView) findViewById(R.id.txtDescripcion);
+                        editTextDescripcion.setText(solicitud.getDescipcion());
+
+
 
 //                        if(resultadoLogguinBoolean){
 //                            verificacionCorrecta = true;
