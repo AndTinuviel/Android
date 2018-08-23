@@ -1,10 +1,13 @@
 package service.proinman.proinmanappmovil;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +19,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import service.proinman.clases.Cotizacion;
+import service.proinman.clases.CotizacionItem;
 import service.proinman.clases.ListaTarea;
 import service.proinman.clases.Solicitud;
 import service.proinman.rest.HttpClient;
@@ -31,15 +36,18 @@ public class GalleryActivity extends AppCompatActivity {
     private static final String TAG = "GalleryActivity";
     private int codigoSolicitud;
     private int codigoTarea;
+    private TableLayout tabla;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         Log.d(TAG, "onCreate: started.");
+        tabla = (TableLayout) findViewById(R.id.simpleTableLayout);
 
         getIncomingIntent(savedInstanceState);
         consultarDatosSolicitud();
+        consultarCotizacionPorCodigoSolicitud();
     }
 
     private void getIncomingIntent(@Nullable Bundle bundle){
@@ -69,8 +77,6 @@ public class GalleryActivity extends AppCompatActivity {
                         String solicitudString = jsonObj.toString();
                         Solicitud solicitud = gson.fromJson(solicitudString,Solicitud.class);
 
-                        System.out.println("*******************  solicitud getCodigoSolicitud "+solicitud.getCodigoSolicitud());
-
                         TextView editTextDireccion = (TextView) findViewById(R.id.txtDireccion);
                         editTextDireccion.setText(solicitud.getDireccion());
 
@@ -78,12 +84,6 @@ public class GalleryActivity extends AppCompatActivity {
                         editTextDescripcion.setText(solicitud.getDescipcion());
 
 
-
-//                        if(resultadoLogguinBoolean){
-//                            verificacionCorrecta = true;
-//                        }else{
-//                            verificacionCorrecta = false;
-//                        }
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -97,6 +97,52 @@ public class GalleryActivity extends AppCompatActivity {
 
     }
 
+
+    private void consultarCotizacionPorCodigoSolicitud(){
+
+        HttpClient cliente =  new HttpClient(new OnHttpRequestComplete() {
+            @Override
+            public void onComplete(Response status) {
+                if(status.isSuccess()){
+                    Gson gson= new GsonBuilder().create();
+                    try {
+                        JSONObject jsonObj = new JSONObject(status.getResult());
+                        String cotizacionString = jsonObj.toString();
+                        Cotizacion cotizacion = gson.fromJson(cotizacionString,Cotizacion.class);
+
+                        for (CotizacionItem item : cotizacion.getListaCotizacionItems()){
+                            TextView itemNombre =new TextView(getBaseContext());
+                            itemNombre.setText(item.getCatalogoItem().getDescripcion());
+                            itemNombre.setBackgroundColor(Color.GRAY);
+                            itemNombre.setPadding(5,5,5,5);
+                            itemNombre.setTextColor(Color.BLUE);
+                            itemNombre.setTextSize(12);
+
+                            TextView itemCantidad =new TextView(getBaseContext());
+                            itemCantidad.setText(item.getCantidad().toString());
+                            itemCantidad.setBackgroundColor(Color.GRAY);
+                            itemCantidad.setPadding(5,5,5,5);
+                            itemCantidad.setTextColor(Color.BLUE);
+                            itemCantidad.setTextSize(12);
+
+
+                            TableRow filaNueva = new TableRow(getBaseContext());
+                            filaNueva.addView(itemNombre);
+                            filaNueva.addView(itemCantidad);
+                            tabla.addView(filaNueva);
+
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        cliente.excecute(Constantes.URL_WEB_SERVICE+"/gestionCotizacion/consultarCotizacionPorCodigoSolicitud?codigoSolicitud=10");//+codigoSolicitud);
+
+    }
 
 
     private void setImage(String imageUrl, String imageName){
