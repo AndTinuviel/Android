@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -32,8 +36,8 @@
             android:label="@string/title_activity_lista_trabajo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ReporteTrabajo"
-            android:label="@string/title_activity_reporte_trabajo"
+            android:name=".OrdenTrabajo"
+            android:label="@string/title_activity_orden_trabajo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Reportes"

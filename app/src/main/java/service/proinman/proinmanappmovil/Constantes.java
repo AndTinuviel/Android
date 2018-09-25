@@ -6,5 +6,5 @@ package service.proinman.proinmanappmovil;
 
 public class Constantes {
 
-    public static final String URL_WEB_SERVICE = "http://192.168.100.5:8180/proinman/rest";
+    public static final String URL_WEB_SERVICE = "http://192.168.100.8:8180/proinman/rest";
 }

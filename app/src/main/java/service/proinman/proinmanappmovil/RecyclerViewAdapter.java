@@ -64,12 +64,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(mContext, GalleryActivity.class);
-                intent.putExtra("image_url", mImages.get(position));
-                intent.putExtra("image_name", mImageNames.get(position));
-                intent.putExtra("codigoTarea", mTarea.get(position).getCodigoTarea());
-                intent.putExtra("codigoSolicitud", mTarea.get(position).getSolicitud().getCodigoSolicitud());
-                mContext.startActivity(intent);
+
+                if(mTarea.get(position).getMotorActividad().getDireccionPagina().equals("ReporteTrabajo")){
+                    Intent intent = new Intent(mContext, GalleryActivity.class);
+                    intent.putExtra("image_url", mImages.get(position));
+                    intent.putExtra("image_name", mImageNames.get(position));
+                    intent.putExtra("codigoTarea", mTarea.get(position).getCodigoTarea());
+                    intent.putExtra("codigoSolicitud", mTarea.get(position).getSolicitud().getCodigoSolicitud());
+                    mContext.startActivity(intent);
+                }
+
+                if(mTarea.get(position).getMotorActividad().getDireccionPagina().equals("OrdenTrabajo")){
+                    Intent intent = new Intent(mContext, OrdenTrabajo.class);
+                    intent.putExtra("image_url", mImages.get(position));
+                    intent.putExtra("image_name", mImageNames.get(position));
+                    intent.putExtra("codigoTarea", mTarea.get(position).getCodigoTarea());
+                    intent.putExtra("codigoSolicitud", mTarea.get(position).getSolicitud().getCodigoSolicitud());
+                    mContext.startActivity(intent);
+                }
+
+
+
+
+
             }
         });
     }

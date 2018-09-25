@@ -27,14 +27,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('libs/gson-2.6.2.jar')
-
     //recyclerview
     compile 'com.android.support:recyclerview-v7:27.0.2'
-
     //glide
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
-
     //circle imageview
     compile 'de.hdodenhof:circleimageview:2.2.0'
+    implementation files('libs/PhotoUtil.jar')
 }

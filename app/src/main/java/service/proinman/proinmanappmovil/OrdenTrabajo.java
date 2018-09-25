@@ -50,7 +50,7 @@ import service.proinman.rest.Response;
  * Created by User on 1/2/2018.
  */
 
-public class GalleryActivity extends AppCompatActivity implements View.OnClickListener {
+public class OrdenTrabajo extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "GalleryActivity";
     private int codigoSolicitud;
@@ -322,7 +322,7 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onComplete(Response status) {
                 if(status.isSuccess()){
-                    Toast.makeText(GalleryActivity.this, "Guardado Correcto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrdenTrabajo.this, "Guardado Correcto", Toast.LENGTH_SHORT).show();
                 }
             }
         });

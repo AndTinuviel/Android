@@ -17,4 +17,6 @@
     <string name="title_activity_lista_trabajo">ListaTrabajo</string>
     <string name="title_activity_reporte_trabajo">ReporteTrabajo</string>
     <string name="title_activity_reportes">Reportes</string>
+    <string name="title_activity_orden_trabajo">OrdenTrabajo</string>
+
 </resources>
